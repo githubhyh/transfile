@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Home Page</title>
+</head>
+<body>
+<p>welcome fileSystem</p>
+<table>
+	<tr>
+		<td>文件</td>
+		<td>日期</td>
+		<td>下载链接</td>
+		<td>上传文件</td>
+	</tr>
+	<#if files??>	
+		<#list files as f>
+			<tr>
+				<#if (f.fileName)?length gte 1>
+					<#if f.isFile == true>
+						<td><a href = "readFile?_file=${f.basePath}">${f.fileName}</a></td>
+						<td>${f.date}</td>
+						<td><a href = "downloadFile?_file=${f.basePath}">下载</a></td>
+						<td><a href = "uploadFile?destPath=${f.basePath}">上传文件</a></td>
+					<#elseif f.isFile == false>
+						<td>${f.fileName}</td>
+						<td>${f.date}</td>
+						<td><a href = "downloadFile?_file=${f.basePath}">下载</a></td>
+						<td></td>
+					</#if>
+				<#elseif f.fileName?length lt 1>
+					<#if f.isFile == true>
+						<td><a href = "readFile?_file=${f.basePath}">${f.name}</a></td>
+						<td>${f.date}</td>
+						<td><a href = "downloadFile?_file=${f.basePath}">下载</a></td>
+						<td><a href = "uploadFile?destPath=${f.basePath}">上传文件</a></td>
+					<#elseif f.isFile == false>
+						<td>${f.fileName}</td>
+						<td>${f.date}</td>
+						<td><a href = "downloadFile?_file=${f.basePath}">下载</a></td>
+						<td></td>
+					</#if>
+				</#if>		
+			</tr>
+		</#list>
+	</#if>
+</table>
+</body>
+</html>
